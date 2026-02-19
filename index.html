@@ -53,7 +53,7 @@
     }
     @keyframes blink { 50% { opacity: 0; } }
 
-    /* --- FIXED PHYSICS CURSOR --- */
+    /*Custom Cursor*/
     #cursor-arrow {
       position: fixed;
       top: 0;
@@ -147,7 +147,7 @@
   <nav class="fixed top-6 left-1/2 -translate-x-1/2 z-50 w-fit">
     <div class="nav-glass rounded-full px-6 py-3 flex items-center gap-8 shadow-2xl">
       <a href="#home" class="text-sm font-medium text-zinc-400 hover:text-white transition-colors interactive">Home</a>
-      <a href="#work" class="text-sm font-medium text-zinc-400 hover:text-white transition-colors interactive">Work</a>
+      <a href="#projects" class="text-sm font-medium text-zinc-400 hover:text-white transition-colors interactive">Projects</a>
       <a href="#about" class="text-sm font-medium text-zinc-400 hover:text-white transition-colors interactive">About</a>
       <a href="#contact" class="text-sm font-medium text-zinc-400 hover:text-white transition-colors interactive">Contact</a>
     </div>
@@ -172,8 +172,8 @@
       </p>
 
       <div class="flex gap-4">
-        <a href="#work" class="interactive bg-[#8fd3ff] text-black px-8 py-3 rounded-lg font-bold hover:bg-[#6ec6ff] transition-all">
-          View My Work
+        <a href="#projects" class="interactive bg-[#8fd3ff] text-black px-8 py-3 rounded-lg font-bold hover:bg-[#6ec6ff] transition-all">
+          View my Skills
         </a>
         <a href="#contact" class="interactive px-6 py-3 bg-zinc-900 border border-zinc-800 text-white font-semibold rounded-lg hover:bg-zinc-800 transition-colors flex items-center gap-2">
           Let's Talk <i data-lucide="arrow-right" class="w-4 h-4"></i>
@@ -181,7 +181,7 @@
       </div>
     </section>
 
-    <section id="work" class="py-32 reveal">
+    <section id="projects" class="py-32 reveal">
       <h2 class="text-3xl font-bold mb-16 flex items-center gap-4 text-white">
         Projects
         <div class="h-[1px] bg-zinc-800 flex-1"></div>
@@ -206,12 +206,12 @@
           <div class="project-dot"></div>
           <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
             <div>
-              <h3 class="text-2xl font-bold text-white group-hover:text-[#8fd3ff] transition-colors">C# - currently learning</h3>
-              <p class="text-zinc-400 mt-2 max-w-xl">Learning C# for game development and creative coding projects. </p>
+              <h3 class="text-2xl font-bold text-white group-hover:text-[#8fd3ff] transition-colors">C#</h3>
+              <p class="text-zinc-400 mt-2 max-w-xl">Learning C# to strengthen my coding fundamentals.</p>
             </div>
             <div class="flex gap-2">
-              <span class="text-[10px] uppercase tracking-widest px-2 py-1 border border-zinc-800 text-zinc-500 rounded">Game Dev</span>
-              <span class="text-[10px] uppercase tracking-widest px-2 py-1 border border-zinc-800 text-zinc-500 rounded">Creative Coding</span>
+              <span class="text-[10px] uppercase tracking-widest px-2 py-1 border border-zinc-800 text-zinc-500 rounded">Fundamentals</span>
+              <span class="text-[10px] uppercase tracking-widest px-2 py-1 border border-zinc-800 text-zinc-500 rounded">Strengthening Foundations</span>
             </div>
           </div>
         </div>
@@ -231,7 +231,22 @@
           </div>
         </div>
       </div>
-    </section>
+
+        <!-- Project 4 -->
+        <div class="project-list-item group interactive">
+          <div class="project-dot"></div>
+          <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+            <div>
+              <h3 class="text-2xl font-bold text-white group-hover:text-[#8fd3ff] transition-colors">Python</h3>
+              <p class="text-zinc-400 mt-2 max-w-xl">Learning Python to enhance my scripts and automation skills.</p>
+            </div>
+            <div class="flex gap-2">
+              <span class="text-[10px] uppercase tracking-widest px-2 py-1 border border-zinc-800 text-zinc-500 rounded">Game Development</span>
+              <span class="text-[10px] uppercase tracking-widest px-2 py-1 border border-zinc-800 text-zinc-500 rounded">Creative Coding</span>
+            </div>
+          </div>
+        </div>
+      </section>
 
 
     <section id="about" class="py-32 reveal">
@@ -242,7 +257,7 @@
             I am an artist and coding enthusiast with a passion for blending creativity and technology. I strive to build projects and create worlds that feel as human as they do digital.
           </p>
           <p class="text-zinc-400 text-lg leading-relaxed">
-            I am currently pursuing my Bachelor's degree in Computer Applications at Kristu Jayanti University, Bangalore.
+            I am currently pursuing my Bachelor's degree in Computer Applications at Kristu Jayanti University, Bangalore, as well as an online anatomy art course by Stan Prokopenko.
           </p>
         </div>
 
@@ -259,9 +274,9 @@
             <div class="flex justify-between items-start">
               <div>
                 <h4 class="font-medium text-white">Creative Projects</h4>
-                <p class="text-zinc-500 text-sm">Art Commissions & Writing</p>
+                <p class="text-zinc-500 text-sm">Art Commissions, Collaborative Writing and Multi Animator Projects</p>
               </div>
-              <span class="text-zinc-400 text-sm">2021 - Present</span>
+              <span class="text-zinc-400 text-sm">2023 - Present</span>
             </div>
           </div>
         </div>
@@ -288,7 +303,7 @@
   </main>
 
   <footer class="border-t border-zinc-900 py-12 text-center text-zinc-500 text-sm">
-    <p>&copy; <span id="year"></span> Aiden. Built with soul.</p>
+    <p>&copy; <span id="year"></span> Aiden.</p>
   </footer>
 
   <script>
