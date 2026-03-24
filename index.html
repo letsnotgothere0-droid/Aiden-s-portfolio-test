@@ -3,13 +3,17 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <!--viewport is a setting that lets the webpage adapt to different screen sizes-->
+  <!-- viewport is a setting that lets the webpage adapt to different screen sizes -->
   <title>Aiden Maria Diengdoh</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://unpkg.com/lucide@latest"></script>
+  <!--libraries used: tailwindCSS as the CSS framework, lucide icons as the svg (scalable vector graphics), googleapis for the font-->
+
+  <!-- end of HTML base, start of CSS -->
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
+    /*:root means the global variables, nav-glass refers to the blurred navigation bar (aka glassmorphism), reveal refers to the animation of each section while scrolling*/
     :root {
       --bg-color: #0b0b0b;
       --card-bg: #151515;
@@ -28,12 +32,14 @@
     }
 
     .nav-glass {
-      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
+      background: linear-gradient(180deg, #ffffff05, #ffffff03);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      /* -webkit- is for Safari support */
       border: 1px solid var(--border);
     }
 
+    /* .reveal states that the element is initially hidden, .reveal.active states that the element is visible during the animation */
     .reveal {
       opacity: 0;
       transform: translateY(60px) scale(0.94);
@@ -52,21 +58,26 @@
       animation: blink 1s steps(2, start) infinite;
       color: var(--accent-color);
     }
+    /* the blink animation has three frames, 0%, 50% and 100% */
     @keyframes blink { 50% { opacity: 0; } }
 
-    /*Custom Cursor*/
+    /*custom cursor, purely visual*/
     #cursor-arrow {
+      /* position fixed means it follows the viewport, not the document, so it stays in place even when scrolling */
       position: fixed;
+      /* top and left are the starting positions of the cursor, which is then updated by JS to follow the mouse */
       top: 0;
       left: 0;
+      /* pointer events none means it doesn't block any buttons between the page and the real cursor */
       pointer-events: none;
-      z-index: 999999; /* Highest priority */
+      z-index: 999999; /* makes sure the cursor is always on top */
       display: none;
       width: 28px;
       height: 28px;
-      fill: #000;
-      stroke: #fff;
-      stroke-width: 1.5px;
+      fill: #1d2236;
+      stroke: var(--accent-hover);
+      /* stroke width is the thickness of the outline */
+      stroke-width: 1.75px;
       transform-origin: center;
       transition: opacity 0.3s ease;
     }
@@ -74,11 +85,12 @@
     #cursor-ring {
       width: 40px;
       height: 40px;
-      border: 1px solid rgba(255, 255, 255, 0.2);
+      border: 0.003px solid #0b0b0b;
       position: fixed;
       top: 0;
       left: 0;
       pointer-events: none;
+      /* appears below the arrow but above everything else */
       z-index: 999998;
       border-radius: 50%;
       transition: width 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), 
@@ -89,6 +101,7 @@
     }
 
     @media (pointer: fine) {
+      /* only when a "fine pointer" is detected, like a mouse, so the cursor won't appear on touchscreen devices */
         .js-cursor-enabled, .js-cursor-enabled * {
             cursor: none !important; /* Force hide on everything */
         }
@@ -98,10 +111,11 @@
         }
     }
 
+    /* when hovering over elements, the arrow fades and the ring expands */ 
     #cursor-ring.cursor-hover {
       width: 80px;
       height: 80px;
-      background-color: rgba(255, 255, 255, 0.1);
+      background-color: #ffffff1a;
       border-color: transparent;
     }
     
@@ -110,16 +124,16 @@
     }
 
     #cursor-ring.cursor-active {
-        width: 30px;
-        height: 30px;
-        background-color: rgba(143, 211, 255, 0.3);
+        width: 35px;
+        height: 35px;
+        background-color: #8acefb4d;
         border-color: var(--accent-color);
     }
 
     .project-list-item {
       position: relative;
       padding-left: 2.5rem;
-      border-left: 1px solid rgba(255,255,255,0.1);
+      border-left: 1px solid #ffffff1a;
     }
     .project-dot {
       position: absolute;
@@ -138,6 +152,8 @@
   </style>
 </head>
 
+<!-- End of CSS, start of HTML Body -->
+
 <body class="antialiased selection:bg-white selection:text-black">
 
   <svg id="cursor-arrow" viewBox="0 0 24 24">
@@ -148,7 +164,7 @@
   <nav class="fixed top-6 left-1/2 -translate-x-1/2 z-50 w-fit">
     <div class="nav-glass rounded-full px-6 py-3 flex items-center gap-8 shadow-2xl">
       <a href="#home" class="text-sm font-medium text-zinc-400 hover:text-white transition-colors interactive">Home</a>
-      <a href="#projects" class="text-sm font-medium text-zinc-400 hover:text-white transition-colors interactive">Projects</a>
+      <a href="#projects" class="text-sm font-medium text-zinc-400 hover:text-white transition-colors interactive">Skills</a>
       <a href="#about" class="text-sm font-medium text-zinc-400 hover:text-white transition-colors interactive">About</a>
       <a href="#contact" class="text-sm font-medium text-zinc-400 hover:text-white transition-colors interactive">Contact</a>
     </div>
@@ -184,40 +200,89 @@
 
     <section id="projects" class="py-32 reveal">
       <h2 class="text-3xl font-bold mb-16 flex items-center gap-4 text-white">
-        Projects
+        Skills
         <div class="h-[1px] bg-zinc-800 flex-1"></div>
       </h2>
-        <div class="project-list-item group interactive">
-          <div class="project-dot"></div>
-          <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
-            <div>
-              <h3 class="text-2xl font-bold text-white group-hover:text-[#8fd3ff] transition-colors">Choicescript<script>
-              </script></h3>
-              <p class="text-zinc-400 mt-2 max-w-xl">A scripting language for creating interactive fiction and visual novels.</p>
-            </div>
-            <div class="flex gap-2">
-              <span class="text-[10px] uppercase tracking-widest px-2 py-1 border border-zinc-800 text-zinc-500 rounded">Visual novels</span>
-              <span class="text-[10px] uppercase tracking-widest px-2 py-1 border border-zinc-800 text-zinc-500 rounded">fiction</span>
-            </div>
-          </div>
-        </div>
 
-        <!-- Project 2 -->
+        <!-- Skill-->
         <div class="project-list-item group interactive">
           <div class="project-dot"></div>
           <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
             <div>
-              <h3 class="text-2xl font-bold text-white group-hover:text-[#8fd3ff] transition-colors">C</h3>
+              <h3 class="text-2xl font-bold text-white group-hover:text-[#8fd3ff] transition-colors">C<script>
+              </script></h3>
               <p class="text-zinc-400 mt-2 max-w-xl">Learning C to strengthen my coding fundamentals.</p>
             </div>
             <div class="flex gap-2">
-              <span class="text-[10px] uppercase tracking-widest px-2 py-1 border border-zinc-800 text-zinc-500 rounded">Fundamentals</span>
               <span class="text-[10px] uppercase tracking-widest px-2 py-1 border border-zinc-800 text-zinc-500 rounded">Strengthening Foundations</span>
+              <span class="text-[10px] uppercase tracking-widest px-2 py-1 border border-zinc-800 text-zinc-500 rounded">Fundamental Coding</span>
             </div>
           </div>
         </div>
 
-        <!-- Project 3 -->
+                <!-- Skill-->
+        <div class="project-list-item group interactive">
+          <div class="project-dot"></div>
+          <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+            <div>
+              <h3 class="text-2xl font-bold text-white group-hover:text-[#8fd3ff] transition-colors">Python</h3>
+              <p class="text-zinc-400 mt-2 max-w-xl">Learning Python to enhance my scripts and automation skills.</p>
+            </div>
+            <div class="flex gap-2">
+              <span class="text-[10px] uppercase tracking-widest px-2 py-1 border border-zinc-800 text-zinc-500 rounded">Scripting</span>
+              <span class="text-[10px] uppercase tracking-widest px-2 py-1 border border-zinc-800 text-zinc-500 rounded">Object-Oriented Programming</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Skill-->
+        <div class="project-list-item group interactive">
+          <div class="project-dot"></div>
+          <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+            <div>
+              <h3 class="text-2xl font-bold text-white group-hover:text-[#8fd3ff] transition-colors">Renpy<script>
+              </script></h3>
+              <p class="text-zinc-400 mt-2 max-w-xl">An open-source engine for creating visual novels and interactive fiction.</p>
+            </div>
+            <div class="flex gap-2">
+              <span class="text-[10px] uppercase tracking-widest px-2 py-1 border border-zinc-800 text-zinc-500 rounded">Visual Novels</span>
+              <span class="text-[10px] uppercase tracking-widest px-2 py-1 border border-zinc-800 text-zinc-500 rounded">Interactive Fiction</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Skill-->
+        <div class="project-list-item group interactive">
+          <div class="project-dot"></div>
+          <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+            <div>
+              <h3 class="text-2xl font-bold text-white group-hover:text-[#8fd3ff] transition-colors">Choicescript</h3>
+              <p class="text-zinc-400 mt-2 max-w-xl">A scripting language for creating interactive fiction and visual novels.</p>
+            </div>
+            <div class="flex gap-2">
+              <span class="text-[10px] uppercase tracking-widest px-2 py-1 border border-zinc-800 text-zinc-500 rounded">Text Adventures</span>
+              <span class="text-[10px] uppercase tracking-widest px-2 py-1 border border-zinc-800 text-zinc-500 rounded">Creative Writing</span>
+            </div>
+          </div>
+        </div>
+
+                <!-- Skill-->
+        <div class="project-list-item group interactive">
+          <div class="project-dot"></div>
+          <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+            <div>
+              <h3 class="text-2xl font-bold text-white group-hover:text-[#8fd3ff] transition-colors">Godot<script>
+              </script></h3>
+              <p class="text-zinc-400 mt-2 max-w-xl">An open-source game engine for creating 2D and 3D games.</p>
+            </div>
+            <div class="flex gap-2">
+              <span class="text-[10px] uppercase tracking-widest px-2 py-1 border border-zinc-800 text-zinc-500 rounded">Game Development</span>
+              <span class="text-[10px] uppercase tracking-widest px-2 py-1 border border-zinc-800 text-zinc-500 rounded">2D Game Design</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Skill-->
         <div class="project-list-item group interactive">
           <div class="project-dot"></div>
           <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
@@ -233,20 +298,6 @@
         </div>
       </div>
 
-        <!-- Project 4 -->
-        <div class="project-list-item group interactive">
-          <div class="project-dot"></div>
-          <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
-            <div>
-              <h3 class="text-2xl font-bold text-white group-hover:text-[#8fd3ff] transition-colors">Python</h3>
-              <p class="text-zinc-400 mt-2 max-w-xl">Learning Python to enhance my scripts and automation skills.</p>
-            </div>
-            <div class="flex gap-2">
-              <span class="text-[10px] uppercase tracking-widest px-2 py-1 border border-zinc-800 text-zinc-500 rounded">Game Development</span>
-              <span class="text-[10px] uppercase tracking-widest px-2 py-1 border border-zinc-800 text-zinc-500 rounded">Creative Coding</span>
-            </div>
-          </div>
-        </div>
       </section>
 
 
@@ -306,6 +357,8 @@
   <footer class="border-t border-zinc-900 py-12 text-center text-zinc-500 text-sm">
     <p>&copy; <span id="year"></span> Aiden.</p>
   </footer>
+
+  <!-- End of Body HTML, start of JavaScript -->
 
   <script>
     lucide.createIcons();
@@ -401,22 +454,48 @@
         updateHover();
     }
 
-    document.getElementById('contactForm').addEventListener('submit', (e) => {
-        e.preventDefault();
-        const btn = document.getElementById('submitBtn');
-        btn.disabled = true;
-        btn.innerHTML = 'Sending...';
-        setTimeout(() => {
-            btn.innerHTML = 'Sent!';
-            e.target.reset();
-            setTimeout(() => {
-                btn.disabled = false;
-                btn.innerHTML = `<span>Send Message</span> <i data-lucide="send" class="w-4 h-4"></i>`;
-                lucide.createIcons();
-            }, 2000);
-        }, 1000);
+document.getElementById('contactForm').addEventListener('submit', async (e) => {
+  e.preventDefault();
+
+  const btn = document.getElementById('submitBtn');
+  btn.disabled = true;
+  btn.innerHTML = 'Sending...';
+
+  const formData = {
+    name: e.target[0].value,
+    email: e.target[1].value,
+    message: e.target[2].value
+  };
+
+  try {
+    const res = await fetch('http://localhost:5000/api/contact', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(formData)
     });
 
+    const data = await res.json();
+
+    if (data.success) {
+      btn.innerHTML = 'Sent!';
+      e.target.reset();
+    } else {
+      btn.innerHTML = 'Failed';
+    }
+
+  } catch (err) {
+    console.error(err);
+    btn.innerHTML = 'Error';
+  }
+
+  setTimeout(() => {
+    btn.disabled = false;
+    btn.innerHTML = `<span>Send Message</span> <i data-lucide="send" class="w-4 h-4"></i>`;
+    lucide.createIcons();
+  }, 2000);
+});
     
   </script>
 </body>
