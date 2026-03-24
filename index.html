@@ -361,142 +361,141 @@
   <!-- End of Body HTML, start of JavaScript -->
 
   <script>
-    lucide.createIcons();
-    document.getElementById('year').textContent = new Date().getFullYear();
+  lucide.createIcons();
+  document.getElementById('year').textContent = new Date().getFullYear();
 
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('active'); });
-    }, { threshold: 0.15 });
-    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('active'); });
+  }, { threshold: 0.15 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-    const words = ["Traditional + Digital Artist.", "Aspiring Game Developer.", "AI Enthusiast.", "Jayantian.", "Fantasy Fiction Writer."];
-    let wordIdx = 0, charIdx = 0, isDeleting = false;
-    const typingEl = document.getElementById("typing-text");
+  const words = ["Traditional + Digital Artist.", "Aspiring Game Developer.", "AI Enthusiast.", "Jayantian.", "Fantasy Fiction Writer."];
+  let wordIdx = 0, charIdx = 0, isDeleting = false;
+  const typingEl = document.getElementById("typing-text");
 
-    function type() {
-        const current = words[wordIdx];
-        typingEl.textContent = isDeleting ? current.substring(0, charIdx--) : current.substring(0, charIdx++);
-        let speed = isDeleting ? 40 : 80;
-        if (!isDeleting && charIdx > current.length) { speed = 2000; isDeleting = true; }
-        else if (isDeleting && charIdx < 0) { isDeleting = false; wordIdx = (wordIdx + 1) % words.length; speed = 500; }
-        setTimeout(type, speed);
-    }
-    type();
+  function type() {
+    const current = words[wordIdx];
+    typingEl.textContent = isDeleting ? current.substring(0, charIdx--) : current.substring(0, charIdx++);
+    let speed = isDeleting ? 40 : 80;
+    if (!isDeleting && charIdx > current.length) { speed = 2000; isDeleting = true; }
+    else if (isDeleting && charIdx < 0) { isDeleting = false; wordIdx = (wordIdx + 1) % words.length; speed = 500; }
+    setTimeout(type, speed);
+  }
+  type();
 
-    // PHYSICS-BASED DIRECTIONAL CURSOR
-    const arrow = document.getElementById('cursor-arrow');
-    const ring = document.getElementById('cursor-ring');
-    let mouseX = 0, mouseY = 0, lastX = 0, lastY = 0;
-    let arrowX = 0, arrowY = 0, ringX = 0, ringY = 0;
-    
-    let currentRotation = 0;
-    let rotationVelocity = 0;
-    let targetRotation = 0;
-    const friction = 0.88; 
-    const spring = 0.02;   
-    const followLerp = 0.18; 
+  // PHYSICS-BASED DIRECTIONAL CURSOR
+  const arrow = document.getElementById('cursor-arrow');
+  const ring = document.getElementById('cursor-ring');
+  let mouseX = 0, mouseY = 0, lastX = 0, lastY = 0;
+  let arrowX = 0, arrowY = 0, ringX = 0, ringY = 0;
+  
+  let currentRotation = 0;
+  let rotationVelocity = 0;
+  let targetRotation = 0;
+  const friction = 0.88; 
+  const spring = 0.02;   
+  const followLerp = 0.18; 
 
-    if (window.matchMedia("(pointer: fine)").matches) {
-        document.body.classList.add('js-cursor-enabled');
-        
-        window.addEventListener('mousemove', e => {
-            mouseX = e.clientX;
-            mouseY = e.clientY;
-        });
-
-        // Click animations
-        window.addEventListener('mousedown', () => ring.classList.add('cursor-active'));
-        window.addEventListener('mouseup', () => ring.classList.remove('cursor-active'));
-
-        function animateCursor() {
-            arrowX += (mouseX - arrowX) * followLerp;
-            arrowY += (mouseY - arrowY) * followLerp;
-            ringX += (mouseX - ringX) * (followLerp * 0.5);
-            ringY += (mouseY - ringY) * (followLerp * 0.5);
-
-            const dx = mouseX - lastX;
-            const dy = mouseY - lastY;
-            
-            if (Math.abs(dx) > 0.1 || Math.abs(dy) > 0.1) {
-                targetRotation = (Math.atan2(dy, dx) * 180 / Math.PI) + 90;
-            }
-
-            let diff = targetRotation - currentRotation;
-            while (diff > 180) diff -= 360;
-            while (diff < -180) diff += 360;
-
-            rotationVelocity += diff * spring;
-            rotationVelocity *= friction;
-            currentRotation += rotationVelocity;
-
-            arrow.style.transform = `translate3d(${arrowX}px, ${arrowY}px, 0) translate(-50%, -50%) rotate(${currentRotation}deg)`;
-            ring.style.transform = `translate3d(${ringX}px, ${ringY}px, 0) translate(-50%, -50%)`;
-
-            lastX = mouseX;
-            lastY = mouseY;
-            requestAnimationFrame(animateCursor);
-        }
-        animateCursor();
-
-        // Hover effect for interactives
-        const updateHover = () => {
-            document.querySelectorAll('a, button, .interactive, input, textarea').forEach(el => {
-                el.addEventListener('mouseenter', () => {
-                    ring.classList.add('cursor-hover');
-                    arrow.classList.add('cursor-hover');
-                });
-                el.addEventListener('mouseleave', () => {
-                    ring.classList.remove('cursor-hover');
-                    arrow.classList.remove('cursor-hover');
-                });
-            });
-        };
-        updateHover();
-    }
-
-document.getElementById('contactForm').addEventListener('submit', async (e) => {
-  e.preventDefault();
-
-  const btn = document.getElementById('submitBtn');
-  btn.disabled = true;
-  btn.innerHTML = 'Sending...';
-
-  const formData = {
-    name: e.target[0].value,
-    email: e.target[1].value,
-    message: e.target[2].value
-  };
-
-  try {
-    const res = await fetch('https://aiden-s-portfolio-test.onrender.com', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(formData)
+  if (window.matchMedia("(pointer: fine)").matches) {
+    document.body.classList.add('js-cursor-enabled');
+    window.addEventListener('mousemove', e => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
     });
 
-    const data = await res.json();
+    window.addEventListener('mousedown', () => ring.classList.add('cursor-active'));
+    window.addEventListener('mouseup', () => ring.classList.remove('cursor-active'));
 
-    if (data.success) {
-      btn.innerHTML = 'Sent!';
-      e.target.reset();
-    } else {
-      btn.innerHTML = 'Failed';
+    function animateCursor() {
+      arrowX += (mouseX - arrowX) * followLerp;
+      arrowY += (mouseY - arrowY) * followLerp;
+      ringX += (mouseX - ringX) * (followLerp * 0.5);
+      ringY += (mouseY - ringY) * (followLerp * 0.5);
+
+      const dx = mouseX - lastX;
+      const dy = mouseY - lastY;
+      
+      if (Math.abs(dx) > 0.1 || Math.abs(dy) > 0.1) {
+        targetRotation = (Math.atan2(dy, dx) * 180 / Math.PI) + 90;
+      }
+
+      let diff = targetRotation - currentRotation;
+      while (diff > 180) diff -= 360;
+      while (diff < -180) diff += 360;
+
+      rotationVelocity += diff * spring;
+      rotationVelocity *= friction;
+      currentRotation += rotationVelocity;
+
+      arrow.style.transform = `translate3d(${arrowX}px, ${arrowY}px, 0) translate(-50%, -50%) rotate(${currentRotation}deg)`;
+      ring.style.transform = `translate3d(${ringX}px, ${ringY}px, 0) translate(-50%, -50%)`;
+
+      lastX = mouseX;
+      lastY = mouseY;
+      requestAnimationFrame(animateCursor);
     }
+    animateCursor();
 
-  } catch (err) {
-    console.error(err);
-    btn.innerHTML = 'Error';
+    const updateHover = () => {
+      document.querySelectorAll('a, button, .interactive, input, textarea').forEach(el => {
+        el.addEventListener('mouseenter', () => {
+          ring.classList.add('cursor-hover');
+          arrow.classList.add('cursor-hover');
+        });
+        el.addEventListener('mouseleave', () => {
+          ring.classList.remove('cursor-hover');
+          arrow.classList.remove('cursor-hover');
+        });
+      });
+    };
+    updateHover();
   }
 
-  setTimeout(() => {
-    btn.disabled = false;
-    btn.innerHTML = `<span>Send Message</span> <i data-lucide="send" class="w-4 h-4"></i>`;
-    lucide.createIcons();
-  }, 2000);
-});
+  // --- CLEAN CONTACT FORM LOGIC ---
+  document.getElementById('contactForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const btn = document.getElementById('submitBtn');
+    const form = e.target;
     
-  </script>
+    btn.disabled = true;
+    btn.innerHTML = 'Sending...';
+
+    // Grabbing data using the placeholders to ensure we hit the right inputs
+    const name = form.querySelector('input[placeholder="Name"]').value;
+    const email = form.querySelector('input[placeholder="Email"]').value;
+    const message = form.querySelector('textarea[placeholder="Message"]').value;
+
+    const payload = { name, email, message };
+
+    try {
+      const res = await fetch('https://aiden-s-portfolio-test.onrender.com/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(payload)
+      });
+
+      const data = await res.json();
+
+      if (data.success) {
+        btn.innerHTML = 'Sent!';
+        form.reset();
+      } else {
+        btn.innerHTML = 'Failed';
+      }
+    } catch (err) {
+      console.error("Submission Error:", err);
+      btn.innerHTML = 'Error';
+    }
+
+    setTimeout(() => {
+      btn.disabled = false;
+      btn.innerHTML = `<span>Send Message</span> <i data-lucide="send" class="w-4 h-4"></i>`;
+      lucide.createIcons();
+    }, 2000);
+  });
+</script>
 </body>
 </html>
