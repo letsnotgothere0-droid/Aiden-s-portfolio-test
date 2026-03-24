@@ -18,6 +18,9 @@ app.get('/', (req, res) => {
 });
 
 app.post('/api/contact', async (req, res) => {
+
+  console.log("REQUEST REACHED BACKEND");
+  
   try {
     const { name, email, message } = req.body;
 
