@@ -9,7 +9,13 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 
 // middleware
-app.use(cors());
+app.use(cors({
+  origin: 'https://aiden-s-portfolio-test.onrender.com',
+  methods: ['GET', 'POST', 'OPTIONS'],
+  allowedHeaders: ['Content-Type']
+}));
+
+app.options('*', cors());
 app.use(express.json());
 
 // ROUTES FIRST
@@ -20,7 +26,7 @@ app.get('/', (req, res) => {
 app.post('/api/contact', async (req, res) => {
 
   console.log("REQUEST REACHED BACKEND");
-  
+
   try {
     const { name, email, message } = req.body;
 
