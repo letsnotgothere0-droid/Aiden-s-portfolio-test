@@ -24,12 +24,21 @@
       --border: #ffffff0a;
     }
 
-    body {
-      font-family: 'Inter', sans-serif;
-      background: var(--bg-color);
-      color: var(--text-color);
-      overflow-x: hidden;
-    }
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: var(--bg-color);
+  background-image: url('https://i.postimg.cc/FFcYYKP8/image.png');
+  background-attachment: fixed; /* This makes it static while you scroll */
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  color: var(--text-color);
+  overflow-x: hidden;
+
+  /* This adds a 70% black tint over your image */
+  background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
+              url('https://i.postimg.cc/FFcYYKP8/image.png') center/cover no-repeat fixed;
+}
 
     .nav-glass {
       background: linear-gradient(180deg, #ffffff05, #ffffff03);
